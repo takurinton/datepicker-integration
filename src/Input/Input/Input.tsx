@@ -23,6 +23,8 @@ export const Input: FC<Props> = ({ date, onChange }) => {
     onKeyDown,
   } = useInput(date, onChange);
 
+  console.log("Input render");
+
   return (
     <CommonInput
       ref={ref}

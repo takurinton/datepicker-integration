@@ -27,6 +27,8 @@ export const DatePicker: FC<Props> = ({ date, onDateChange }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { monthList } = useScroll(date, ref);
 
+  console.log("calendar render");
+
   return (
     <Container>
       <ScrollArea ref={ref} minHeight={HEIGHT} maxHeight={HEIGHT} id="calendar">
