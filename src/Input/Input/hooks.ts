@@ -3,6 +3,7 @@ import {
   ChangeEvent,
   KeyboardEvent,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -27,6 +28,14 @@ export const useInput = (
     d: date.format("DD") as Day,
   });
   const valid = useMemo(() => isValidDate(selected), [selected]);
+
+  // useEffect(() => {
+  //   setSelected({
+  //     y: date.format("YYYY") as Year,
+  //     m: date.format("MM") as Month,
+  //     d: date.format("DD") as Day,
+  //   });
+  // }, [date]);
 
   const handleChange = useCallback(
     (focusType: YMD) => (event: ChangeEvent<HTMLInputElement>) => {
