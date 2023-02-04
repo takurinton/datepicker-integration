@@ -8,11 +8,11 @@ import { MARGIN } from "../constants";
  * of the object's referent.
  */
 const getNextYearMonthList = (date: Dayjs) =>
-  Array.from(new Array(12)).map((_, i) => date.clone().add(i, "month"));
+  Array.from(new Array(24)).map((_, i) => date.clone().add(i, "month"));
 
 const getPrevYearMonthList = (date: Dayjs) =>
-  Array.from(new Array(12)).map((_, i) =>
-    date.clone().subtract(12 - i, "month")
+  Array.from(new Array(24)).map((_, i) =>
+    date.clone().subtract(24 - i, "month")
   );
 
 export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
@@ -20,8 +20,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     prev: Dayjs;
     next: Dayjs;
   }>({
-    prev: d.subtract(12, "month"),
-    next: d.add(1, "year"),
+    prev: d.subtract(24, "month"),
+    next: d.add(2, "year"),
   });
   const [monthList, setMonthList] = useState<Dayjs[]>([
     ...getPrevYearMonthList(d),
@@ -36,15 +36,10 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     }
   }, [d]);
 
-  // debug code
-  // console.log(loaded.prev.format("YYYY-MM"), loaded.next.format("YYYY-MM"));
-  console.log(monthList.map((d) => d.format("YYYY-MM")));
-
-  // for change input value
   useEffect(() => {
     setLoaded({
-      prev: d.subtract(12, "month"),
-      next: d.add(1, "year"),
+      prev: d.subtract(2, "year"),
+      next: d.add(2, "year"),
     });
     setMonthList([...getPrevYearMonthList(d), ...getNextYearMonthList(d)]);
   }, [d]);
@@ -55,8 +50,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const next = loaded.next.add(1, "year");
-            const prev = loaded.prev.add(1, "year");
+            const next = loaded.next.add(2, "year");
+            const prev = loaded.prev.add(2, "year");
 
             const prevYearMonthList = getPrevYearMonthList(loaded.next);
             const nextYearMonthList = getNextYearMonthList(loaded.next);
@@ -94,8 +89,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const next = loaded.next.subtract(1, "year");
-            const prev = loaded.prev.subtract(1, "year");
+            const next = loaded.next.subtract(2, "year");
+            const prev = loaded.prev.subtract(2, "year");
 
             const prevYearMonthList = getPrevYearMonthList(loaded.prev);
             const nextYearMonthList = getNextYearMonthList(loaded.prev);
