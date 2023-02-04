@@ -5,6 +5,7 @@ import { Day } from "./internal/Day";
 import { HEIGHT, weekList } from "../constants";
 import {
   Container,
+  ScrollContainer,
   CalendarContainer,
   DatePickerContainer,
   DayStyle,
@@ -31,7 +32,7 @@ export const Calendar: FC<Props> = ({ date, onDateChange }) => {
 
   return (
     <Container>
-      <ScrollArea ref={ref} minHeight={HEIGHT} maxHeight={HEIGHT} id="calendar">
+      <ScrollArea minHeight={HEIGHT} maxHeight={HEIGHT} ref={ref} id="calendar">
         <>
           {monthList.map((m) => (
             <DatePickerContainer

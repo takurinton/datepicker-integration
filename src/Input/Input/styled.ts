@@ -6,6 +6,7 @@ export const InputContainer = styled.div<{ focus: boolean; valid: boolean }>`
   border: 0;
   font-size: 14px;
   width: fit-content;
+  height: fit-content;
   border-bottom: solid 2px
     ${({ theme, focus, valid }) =>
       !valid
