@@ -23,7 +23,7 @@ const Input = forwardRef<HTMLDivElement, Props>(
     {
       focus,
       valid,
-      // date,
+      date,
       selected,
       yearRef,
       monthRef,

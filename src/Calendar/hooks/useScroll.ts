@@ -33,7 +33,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     for (const target of targets) {
       target.scrollIntoView({ block: "center" });
     }
-  }, []);
+  }, [d]);
 
   useEffect(() => {
     // typeof https://developer.mozilla.org/ja/docs/Web/API/IntersectionObserverEntry

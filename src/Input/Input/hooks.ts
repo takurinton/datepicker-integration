@@ -35,16 +35,12 @@ export const useInput = (
       }
 
       const { value } = event.target;
-      const newValue = transformSelected({
-        selected,
-        focusType,
-        value: value as any,
-      });
+      const newValue = {
+        ...selected,
+        [focusType]: value as any,
+      };
       setSelected(newValue);
-      if (valid) {
-        onChange &&
-          onChange(dayjs(`${newValue.y}-${newValue.m}-${newValue.d}`));
-      }
+      onChange(dayjs(`${newValue.y}-${newValue.m}-${newValue.d}`));
     },
     []
   );
