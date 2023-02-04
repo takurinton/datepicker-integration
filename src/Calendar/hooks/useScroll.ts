@@ -35,6 +35,17 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     }
   }, [d]);
 
+  // debug code
+  console.log(loaded.prev.format("YYYY-MM"), loaded.next.format("YYYY-MM"));
+
+  useEffect(() => {
+    setLoaded({
+      prev: d.subtract(12, "month"),
+      next: d.add(1, "year"),
+    });
+    setMonthList([...getPrevYearMonthList(d), ...getNextYearMonthList(d)]);
+  }, [d]);
+
   useEffect(() => {
     // typeof https://developer.mozilla.org/ja/docs/Web/API/IntersectionObserverEntry
     const cb = (entries: IntersectionObserverEntry[]) => {
@@ -71,7 +82,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
         observer.unobserve(target);
       }
     };
-  }, [loaded.next]);
+  }, [loaded.next, d]);
 
   useEffect(() => {
     // typeof https://developer.mozilla.org/ja/docs/Web/API/IntersectionObserverEntry
@@ -109,7 +120,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
         observer.unobserve(target);
       }
     };
-  }, [loaded.prev]);
+  }, [loaded.prev, d]);
 
   return { monthList };
 };
