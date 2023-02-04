@@ -1,5 +1,5 @@
 import { Spacer } from "ingred-ui";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { Input } from "../Input/Input";
 import { Calendar } from "../Calendar/Calendar";
 import { Dayjs } from "dayjs";
@@ -10,15 +10,13 @@ type Action = {
   onClick: () => void;
 };
 
-export const DatePicker = ({
-  date,
-  actions,
-  onChange,
-}: {
+type Props = {
   date: Dayjs;
   actions?: Action[];
   onChange: (date: Dayjs) => void;
-}) => {
+};
+
+export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
   return (
     <Card display="flex">
       <LeftContainer>
