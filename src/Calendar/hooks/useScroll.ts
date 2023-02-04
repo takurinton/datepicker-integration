@@ -28,6 +28,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     ...getNextYearMonthList(d),
   ]);
 
+  // for initial and change input value
   useEffect(() => {
     const targets = document.getElementsByClassName(d.format("YYYY-MM"));
     for (const target of targets) {
@@ -36,8 +37,10 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
   }, [d]);
 
   // debug code
-  console.log(loaded.prev.format("YYYY-MM"), loaded.next.format("YYYY-MM"));
+  // console.log(loaded.prev.format("YYYY-MM"), loaded.next.format("YYYY-MM"));
+  console.log(monthList.map((d) => d.format("YYYY-MM")));
 
+  // for change input value
   useEffect(() => {
     setLoaded({
       prev: d.subtract(12, "month"),
@@ -46,28 +49,29 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     setMonthList([...getPrevYearMonthList(d), ...getNextYearMonthList(d)]);
   }, [d]);
 
+  // for next scroll
   useEffect(() => {
-    // typeof https://developer.mozilla.org/ja/docs/Web/API/IntersectionObserverEntry
-    const cb = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const next = loaded.next.add(1, "year");
-          const prev = loaded.prev.add(1, "year");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const next = loaded.next.add(1, "year");
+            const prev = loaded.prev.add(1, "year");
 
-          const prevYearMonthList = getPrevYearMonthList(loaded.next);
-          const nextYearMonthList = getNextYearMonthList(loaded.next);
+            const prevYearMonthList = getPrevYearMonthList(loaded.next);
+            const nextYearMonthList = getNextYearMonthList(loaded.next);
 
-          setLoaded({ next, prev });
-          setMonthList([...prevYearMonthList, ...nextYearMonthList]);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(cb, {
-      root: ref.current,
-      rootMargin: `${MARGIN}px`,
-      threshold: 0.1,
-    });
+            setLoaded({ next, prev });
+            setMonthList([...prevYearMonthList, ...nextYearMonthList]);
+          }
+        });
+      },
+      {
+        root: ref.current,
+        rootMargin: `${MARGIN}px`,
+        threshold: 0.1,
+      }
+    );
 
     const targets = document.getElementsByClassName(
       loaded.next.subtract(1, "month").format("YYYY-MM")
@@ -82,30 +86,31 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
         observer.unobserve(target);
       }
     };
-  }, [loaded.next, d]);
+  }, [loaded.next]);
 
+  // for before scroll
   useEffect(() => {
-    // typeof https://developer.mozilla.org/ja/docs/Web/API/IntersectionObserverEntry
-    const cb = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const next = loaded.next.subtract(1, "year");
-          const prev = loaded.prev.subtract(1, "year");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const next = loaded.next.subtract(1, "year");
+            const prev = loaded.prev.subtract(1, "year");
 
-          const prevYearMonthList = getPrevYearMonthList(loaded.prev);
-          const nextYearMonthList = getNextYearMonthList(loaded.prev);
+            const prevYearMonthList = getPrevYearMonthList(loaded.prev);
+            const nextYearMonthList = getNextYearMonthList(loaded.prev);
 
-          setLoaded({ next, prev });
-          setMonthList([...prevYearMonthList, ...nextYearMonthList]);
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(cb, {
-      root: ref.current,
-      rootMargin: `${MARGIN}px`,
-      threshold: 0.1,
-    });
+            setLoaded({ next, prev });
+            setMonthList([...prevYearMonthList, ...nextYearMonthList]);
+          }
+        });
+      },
+      {
+        root: ref.current,
+        rootMargin: `${MARGIN}px`,
+        threshold: 0.1,
+      }
+    );
 
     const targets = document.getElementsByClassName(
       loaded.prev.add(1, "month").format("YYYY-MM")
@@ -120,7 +125,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
         observer.unobserve(target);
       }
     };
-  }, [loaded.prev, d]);
+  }, [loaded.prev]);
 
   return { monthList };
 };
