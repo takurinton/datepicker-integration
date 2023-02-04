@@ -5,6 +5,7 @@ import { Day } from "./internal/Day";
 import { HEIGHT, weekList } from "../constants";
 import {
   Container,
+  ScrollContainer,
   CalendarContainer,
   DatePickerContainer,
   DayStyle,
@@ -17,12 +18,12 @@ type Props = {
 };
 
 /**
- * DatePicker
+ * Calendar
  * Scrollable calendar UI.
  * Currently, one year from the currently selected date is displayed.
  * @todo forwardRef
  */
-export const DatePicker: FC<Props> = ({ date, onDateChange }) => {
+export const Calendar: FC<Props> = ({ date, onDateChange }) => {
   const vdate = useMemo(() => date.clone(), [date]);
   const ref = useRef<HTMLDivElement>(null);
   const { monthList } = useScroll(date, ref);
@@ -31,7 +32,7 @@ export const DatePicker: FC<Props> = ({ date, onDateChange }) => {
 
   return (
     <Container>
-      <ScrollArea ref={ref} minHeight={HEIGHT} maxHeight={HEIGHT} id="calendar">
+      <ScrollArea minHeight={HEIGHT} maxHeight={HEIGHT} ref={ref} id="calendar">
         <>
           {monthList.map((m) => (
             <DatePickerContainer

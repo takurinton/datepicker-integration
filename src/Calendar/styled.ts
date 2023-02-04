@@ -2,10 +2,17 @@ import styled from "styled-components";
 import { Flex } from "ingred-ui";
 
 export const Container = styled.div`
-  padding: ${({ theme }) => theme.spacing}px;
+  /* padding: ${({ theme }) => theme.spacing}px; */
   border-radius: ${({ theme }) => theme.radius}px;
-  border: 1px solid ${({ theme }) => theme.palette.gray.light};
   width: fit-content;
+`;
+
+export const ScrollContainer = styled.div`
+  overflow-y: scroll;
+  max-height: 400px;
+  min-height: 400px;
+  padding: ${({ theme }) => theme.spacing}px;
+  border: none;
 `;
 
 export const DatePickerContainer = styled(Flex)`
