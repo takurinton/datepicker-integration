@@ -7,10 +7,10 @@ import { MARGIN } from "../constants";
  * This means that the user of this function will not be aware
  * of the object's referent.
  */
-const getNextYearMonthList = (date: Dayjs) =>
+const getNextMonthList = (date: Dayjs) =>
   Array.from(new Array(13)).map((_, i) => date.clone().add(i, "month"));
 
-const getPrevYearMonthList = (date: Dayjs) =>
+const getPrevMonthList = (date: Dayjs) =>
   Array.from(new Array(13)).map((_, i) =>
     date.clone().subtract(13 - i, "month")
   );
@@ -24,8 +24,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     next: d.add(13, "month"),
   });
   const [monthList, setMonthList] = useState<Dayjs[]>([
-    ...getPrevYearMonthList(d),
-    ...getNextYearMonthList(d),
+    ...getPrevMonthList(d),
+    ...getNextMonthList(d),
   ]);
 
   // for initial and change input value
@@ -41,7 +41,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
       prev: d.subtract(13, "month"),
       next: d.add(13, "month"),
     });
-    setMonthList([...getPrevYearMonthList(d), ...getNextYearMonthList(d)]);
+    setMonthList([...getPrevMonthList(d), ...getNextMonthList(d)]);
   }, [d]);
 
   // for next scroll
@@ -53,8 +53,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
             const next = loaded.next.add(13, "month");
             const prev = loaded.prev.add(13, "month");
 
-            const prevYearMonthList = getPrevYearMonthList(loaded.next);
-            const nextYearMonthList = getNextYearMonthList(loaded.next);
+            const prevYearMonthList = getPrevMonthList(loaded.next);
+            const nextYearMonthList = getNextMonthList(loaded.next);
 
             setLoaded({ next, prev });
             setMonthList([...prevYearMonthList, ...nextYearMonthList]);
@@ -92,8 +92,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
             const next = loaded.next.subtract(13, "month");
             const prev = loaded.prev.subtract(13, "month");
 
-            const prevYearMonthList = getPrevYearMonthList(loaded.prev);
-            const nextYearMonthList = getNextYearMonthList(loaded.prev);
+            const prevYearMonthList = getPrevMonthList(loaded.prev);
+            const nextYearMonthList = getNextMonthList(loaded.prev);
 
             setLoaded({ next, prev });
             setMonthList([...prevYearMonthList, ...nextYearMonthList]);
