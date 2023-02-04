@@ -8,11 +8,11 @@ import { MARGIN } from "../constants";
  * of the object's referent.
  */
 const getNextYearMonthList = (date: Dayjs) =>
-  Array.from(new Array(24)).map((_, i) => date.clone().add(i, "month"));
+  Array.from(new Array(13)).map((_, i) => date.clone().add(i, "month"));
 
 const getPrevYearMonthList = (date: Dayjs) =>
-  Array.from(new Array(24)).map((_, i) =>
-    date.clone().subtract(24 - i, "month")
+  Array.from(new Array(13)).map((_, i) =>
+    date.clone().subtract(13 - i, "month")
   );
 
 export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
@@ -20,8 +20,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     prev: Dayjs;
     next: Dayjs;
   }>({
-    prev: d.subtract(24, "month"),
-    next: d.add(2, "year"),
+    prev: d.subtract(13, "month"),
+    next: d.add(13, "month"),
   });
   const [monthList, setMonthList] = useState<Dayjs[]>([
     ...getPrevYearMonthList(d),
@@ -38,8 +38,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
 
   useEffect(() => {
     setLoaded({
-      prev: d.subtract(2, "year"),
-      next: d.add(2, "year"),
+      prev: d.subtract(13, "month"),
+      next: d.add(13, "month"),
     });
     setMonthList([...getPrevYearMonthList(d), ...getNextYearMonthList(d)]);
   }, [d]);
@@ -50,8 +50,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const next = loaded.next.add(2, "year");
-            const prev = loaded.prev.add(2, "year");
+            const next = loaded.next.add(13, "month");
+            const prev = loaded.prev.add(13, "month");
 
             const prevYearMonthList = getPrevYearMonthList(loaded.next);
             const nextYearMonthList = getNextYearMonthList(loaded.next);
@@ -89,8 +89,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const next = loaded.next.subtract(2, "year");
-            const prev = loaded.prev.subtract(2, "year");
+            const next = loaded.next.subtract(13, "month");
+            const prev = loaded.prev.subtract(13, "month");
 
             const prevYearMonthList = getPrevYearMonthList(loaded.prev);
             const nextYearMonthList = getNextYearMonthList(loaded.prev);
