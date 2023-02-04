@@ -19,12 +19,12 @@ type Props = {
 };
 
 /**
- * DateRangePicker
+ * CalendarRange
  * Scrollable calendar UI.
  * Currently, one year from the currently selected date is displayed.
  * @todo forwardRef
  */
-export const DateRangePicker: FC<Props> = ({ date, onDateChange }) => {
+export const CalendarRange: FC<Props> = ({ date, onDateChange }) => {
   const vdate = useMemo(
     () => ({
       startDate: date.startDate?.clone(),

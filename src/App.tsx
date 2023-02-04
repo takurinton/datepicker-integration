@@ -1,9 +1,24 @@
 import { createTheme, ThemeProvider, Spacer } from "ingred-ui";
 import dayjs, { Dayjs } from "dayjs";
 import { useState } from "react";
-import { DatePicker } from "./Calendar/DatePicker";
+import { Calendar } from "./Calendar/Calendar";
 import { Input } from "./Input/Input";
-// import { NativeInput } from "./Input/Native";
+
+const DatePicker = ({
+  date,
+  onChange,
+}: {
+  date: Dayjs;
+  onChange: (date: Dayjs) => void;
+}) => {
+  return (
+    <>
+      <Input date={date} onChange={onChange} />
+      <Spacer pb={1} />
+      <Calendar date={date} onDateChange={onChange} />
+    </>
+  );
+};
 
 function App() {
   const theme = createTheme();
@@ -11,9 +26,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Input date={date} onChange={setDate} />
-      <Spacer pb={1} />
-      <DatePicker date={date} onDateChange={setDate} />
+      <DatePicker date={date} onChange={setDate} />
     </ThemeProvider>
   );
 }

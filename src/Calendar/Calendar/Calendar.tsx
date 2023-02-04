@@ -17,12 +17,12 @@ type Props = {
 };
 
 /**
- * DatePicker
+ * Calendar
  * Scrollable calendar UI.
  * Currently, one year from the currently selected date is displayed.
  * @todo forwardRef
  */
-export const DatePicker: FC<Props> = ({ date, onDateChange }) => {
+export const Calendar: FC<Props> = ({ date, onDateChange }) => {
   const vdate = useMemo(() => date.clone(), [date]);
   const ref = useRef<HTMLDivElement>(null);
   const { monthList } = useScroll(date, ref);
