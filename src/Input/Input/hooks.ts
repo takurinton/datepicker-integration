@@ -34,11 +34,10 @@ export const useInput = (
       if (onChange === undefined) {
         return;
       }
-
       const { value } = event.target;
       const newValue = {
         ...selected,
-        [focusType]: value as any,
+        [focusType]: value,
       };
       setSelected(newValue);
       onChange(dayjs(`${newValue.y}-${newValue.m}-${newValue.d}`));
