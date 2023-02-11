@@ -1,6 +1,41 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div<{ focus: boolean; valid: boolean }>`
+  padding: 4px;
+  display: flex;
+  border-radius: ${({ theme }) => theme.radius}px};
+  width: fit-content;
+  height: fit-content;
+  border: solid 1px
+    ${({ theme, focus, valid }) =>
+      !valid
+        ? theme.palette.danger.main
+        : focus
+        ? theme.palette.primary.main
+        : theme.palette.divider};
+`;
+
+export const InputElement = styled.input<{ count: number }>`
+  border: none;
+  font-size: 16px;
+  width: ${({ count }) => count * 10}px;
+  text-align: right;
+  background: none;
+  outline: none;
+`;
+
+export const CalendarIcon = styled.button`
+  border: none;
+  text-align: right;
+  background: none;
+  outline: none;
+  cursor: pointer;
+`;
+
+export const InputInCalendarContainer = styled.div<{
+  focus: boolean;
+  valid: boolean;
+}>`
   display: "flex";
   width: 140px;
   border: 0;
@@ -16,7 +51,7 @@ export const InputContainer = styled.div<{ focus: boolean; valid: boolean }>`
         : theme.palette.divider};
 `;
 
-export const InputElement = styled.input<{ count: number }>`
+export const InputInCalendarElement = styled.input<{ count: number }>`
   border: none;
   font-size: 14px;
   width: ${({ count }) => count * 8}px;

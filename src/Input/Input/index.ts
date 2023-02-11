@@ -1,2 +1,2 @@
-export { Input } from "./Input";
+export { Input, InputInCalendar } from "./Input";
 export { InputRange } from "./InputRange";
