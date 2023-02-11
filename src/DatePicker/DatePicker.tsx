@@ -22,8 +22,10 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
       <LeftContainer>
         <Input date={date} onChange={onChange} />
         <Spacer pb={1} />
-        {actions?.map(({ text, onClick }) => (
-          <Action onClick={() => onClick()}>{text}</Action>
+        {actions?.map(({ text, onClick }, i) => (
+          <Action key={i} onClick={() => onClick()}>
+            {text}
+          </Action>
         ))}
       </LeftContainer>
       <Spacer pl={1} />
