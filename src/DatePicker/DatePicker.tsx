@@ -30,10 +30,8 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
     <Flex ref={ref}>
       {/* input */}
       {/* TODO: fix input style */}
-      <Input date={date} onChange={onChange} />
+      <Input date={date} onChange={onChange} onClick={() => setIsOpen(true)} />
       <Spacer pb={1} />
-      {/* TODO: icon button with input */}
-      <button onClick={() => setIsOpen(!isOpen)}>click</button>
 
       {/* calendar */}
       {/* TODO: should think using modal */}

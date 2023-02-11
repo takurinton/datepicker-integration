@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div<{ focus: boolean; valid: boolean }>`
-padding: 4px;
+  padding: 4px;
   display: flex;
   border-radius: ${({ theme }) => theme.radius}px};
   width: fit-content;
@@ -22,6 +22,14 @@ export const InputElement = styled.input<{ count: number }>`
   text-align: right;
   background: none;
   outline: none;
+`;
+
+export const CalendarIcon = styled.button`
+  border: none;
+  text-align: right;
+  background: none;
+  outline: none;
+  cursor: pointer;
 `;
 
 export const InputInCalendarContainer = styled.div<{

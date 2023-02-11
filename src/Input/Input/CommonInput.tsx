@@ -1,7 +1,8 @@
 import { Dayjs } from "dayjs";
-import { Typography } from "ingred-ui";
+import { Icon, Typography } from "ingred-ui";
 import { ChangeEvent, forwardRef, KeyboardEvent, memo, RefObject } from "react";
 import {
+  CalendarIcon,
   InputContainer,
   InputElement,
   InputInCalendarContainer,
@@ -21,6 +22,9 @@ type Props = {
   onBlur: () => void;
   onKeyDown: (type: YMD) => (event: KeyboardEvent<HTMLInputElement>) => void; // for developer
   handleChange: (type: YMD) => (event: ChangeEvent<HTMLInputElement>) => void; // for user
+
+  // 🙄
+  onClick?: () => void;
 };
 
 const Input = forwardRef<HTMLDivElement, Props>(
@@ -37,6 +41,7 @@ const Input = forwardRef<HTMLDivElement, Props>(
       onBlur,
       onKeyDown,
       handleChange,
+      onClick,
     },
     ref
   ) => (
@@ -83,6 +88,9 @@ const Input = forwardRef<HTMLDivElement, Props>(
         onChange={handleChange("d")}
         onKeyDown={onKeyDown("d")}
       />
+      <CalendarIcon onClick={onClick}>
+        <Icon name="date_range" />
+      </CalendarIcon>
     </InputContainer>
   )
 );

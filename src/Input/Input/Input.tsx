@@ -6,9 +6,10 @@ import { CommonInput, CommonInputInCalendar } from "./CommonInput";
 type Props = {
   date: Dayjs;
   onChange?: (date: Dayjs) => void;
+  onClick?: () => void;
 };
 
-export const Input: FC<Props> = ({ date, onChange }) => {
+export const Input: FC<Props> = ({ date, onChange, onClick }) => {
   const {
     ref,
     yearRef,
@@ -39,6 +40,7 @@ export const Input: FC<Props> = ({ date, onChange }) => {
       onFocus={onFocus}
       onBlur={onBlur}
       onKeyDown={onKeyDown}
+      onClick={onClick}
     />
   );
 };
