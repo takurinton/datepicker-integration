@@ -40,7 +40,9 @@ export const useInput = (
         [focusType]: value,
       };
       setSelected(newValue);
-      onChange(dayjs(`${newValue.y}-${newValue.m}-${newValue.d}`));
+      if (isValidDate(newValue)) {
+        onChange(dayjs(`${newValue.y}-${newValue.m}-${newValue.d}`));
+      }
     },
     []
   );
@@ -76,7 +78,7 @@ export const useInput = (
           value: value as any,
         });
         setSelected(newValue);
-        if (valid) {
+        if (isValidDate(newValue)) {
           onChange &&
             onChange(dayjs(`${newValue.y}-${newValue.m}-${newValue.d}`));
         }
@@ -90,7 +92,7 @@ export const useInput = (
           value: value as any,
         });
         setSelected(newValue);
-        if (valid) {
+        if (isValidDate(newValue)) {
           onChange &&
             onChange(dayjs(`${newValue.y}-${newValue.m}-${newValue.d}`));
         }
