@@ -1,9 +1,9 @@
 import { Backdrop, Fade, Flex, Modal, Portal, Spacer } from "ingred-ui";
 import { FC, ReactNode, cloneElement, useRef, useState } from "react";
-import { Input } from "../Input/Input";
+import { Input, InputInCalendar } from "../Input/Input";
 import { Calendar } from "../Calendar/Calendar";
 import { Dayjs } from "dayjs";
-import { Card, Action, LeftContainer, Container } from "./styled";
+import { Card, Action, LeftContainer } from "./styled";
 
 type Action = {
   text: ReactNode;
@@ -30,17 +30,15 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
     <Flex ref={ref}>
       {/* input */}
       {/* TODO: fix input style */}
-      <Input date={date} onChange={onChange} />
+      <Input date={date} onChange={onChange} onClick={() => setIsOpen(true)} />
       <Spacer pb={1} />
-      {/* TODO: icon button with input */}
-      <button onClick={() => setIsOpen(!isOpen)}>click</button>
 
       {/* calendar */}
       {/* TODO: should think using modal */}
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Card display="flex">
           <LeftContainer>
-            <Input date={date} onChange={onChange} />
+            <InputInCalendar date={date} onChange={onChange} />
             <Spacer pb={1} />
             {actions?.map(({ text, onClick }, i) => (
               <Action key={i} onClick={() => onClick()}>
