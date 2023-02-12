@@ -1,10 +1,6 @@
 import { Flex } from "ingred-ui";
 import styled from "styled-components";
 
-export const Container = styled.div`
-  z-index: ${({ theme }) => theme.depth.modal};
-`;
-
 /**
  * @todo centering???
  */
