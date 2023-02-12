@@ -17,7 +17,6 @@ const DatePickerSample = () => {
       {
         text: "来週",
         onClick: () => {
-          console.log("clicked");
           setDate(dayjs().add(1, "week"));
         },
       },
@@ -47,7 +46,6 @@ const DateRangePickerSample = () => {
       {
         text: "来週",
         onClick: () => {
-          console.log("clicked");
           setDate({
             startDate: dayjs(),
             endDate: dayjs().add(1, "week"),
@@ -57,7 +55,6 @@ const DateRangePickerSample = () => {
       {
         text: "先月",
         onClick: () => {
-          console.log("clicked");
           setDate({
             startDate: dayjs().subtract(1, "month"),
             endDate: dayjs(),
