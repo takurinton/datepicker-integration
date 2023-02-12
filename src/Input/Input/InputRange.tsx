@@ -1,7 +1,11 @@
 import { Dayjs } from "dayjs";
 import { Flex, Spacer, Typography } from "ingred-ui";
 import { FC } from "react";
-import { CommonInput, CommonInputInCalendar } from "./CommonInput";
+import {
+  CommonInput,
+  CommonInputInCalendar,
+  CommonInputRange,
+} from "./CommonInput";
 import { AllowedKeys } from "../constants";
 import { useInput } from "./hooks";
 import { Range } from "../types";
@@ -72,7 +76,7 @@ export const InputRange: FC<Props> = ({ date, onChange, onClick }) => {
 
   return (
     <Flex display="flex">
-      <CommonInput
+      <CommonInputRange
         ref={startRef}
         date={date.startDate}
         focus={startFocus}
@@ -86,13 +90,9 @@ export const InputRange: FC<Props> = ({ date, onChange, onClick }) => {
         onBlur={onBlurStart}
         onKeyDown={onKeyDownStart}
         onClick={onClick}
+        usecase="start"
       />
-      <Spacer pr={1} pl={1}>
-        <Typography component="span" color="gray">
-          -
-        </Typography>
-      </Spacer>
-      <CommonInput
+      <CommonInputRange
         ref={endRef}
         date={date.endDate}
         focus={endFocus}
@@ -106,6 +106,7 @@ export const InputRange: FC<Props> = ({ date, onChange, onClick }) => {
         onBlur={onBlurEnd}
         onKeyDown={onKeyDownEnd}
         onClick={onClick}
+        usecase="end"
       />
     </Flex>
   );

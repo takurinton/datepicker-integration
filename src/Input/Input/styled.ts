@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const InputContainer = styled.div<{ focus: boolean; valid: boolean }>`
+export const InputContainer = styled.div<{
+  focus: boolean;
+  valid: boolean;
+  usecase?: "start" | "end" | undefined;
+}>`
   padding: 4px;
   display: flex;
   border-radius: ${({ theme }) => theme.radius}px};
@@ -13,6 +17,19 @@ export const InputContainer = styled.div<{ focus: boolean; valid: boolean }>`
         : focus
         ? theme.palette.primary.main
         : theme.palette.divider};
+  ${({ usecase }) =>
+    usecase === "start"
+      ? `
+        border-right: none;
+        border-radius: 4px 0 0 4px;
+        `
+      : usecase === "end"
+      ? `
+        border-left: none;
+        border-radius: 0 4px 4px 0;
+        `
+      : ""}
+      
 `;
 
 export const InputElement = styled.input<{ count: number }>`

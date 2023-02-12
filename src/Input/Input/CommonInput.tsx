@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { Icon, Typography } from "ingred-ui";
+import { Icon, Spacer, Typography } from "ingred-ui";
 import { ChangeEvent, forwardRef, KeyboardEvent, memo, RefObject } from "react";
 import {
   CalendarIcon,
@@ -95,6 +95,89 @@ const Input = forwardRef<HTMLDivElement, Props>(
   )
 );
 
+const InputRange = forwardRef<
+  HTMLDivElement,
+  // 🙄
+  Props & { usecase: "start" | "end" }
+>(
+  (
+    {
+      focus,
+      valid,
+      date,
+      selected,
+      yearRef,
+      monthRef,
+      dayRef,
+      onFocus,
+      onBlur,
+      onKeyDown,
+      handleChange,
+      onClick,
+      usecase,
+    },
+    ref
+  ) => (
+    <InputContainer ref={ref} focus={focus} valid={valid} usecase={usecase}>
+      <InputElement
+        placeholder="yyyy"
+        ref={yearRef}
+        count={4}
+        value={selected.y}
+        maxLength={4}
+        pattern="[0-9]*"
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={handleChange("y")}
+        onKeyDown={onKeyDown("y")}
+      />
+      <Typography component="span" color="gray" size="xxxl">
+        /
+      </Typography>
+      <InputElement
+        placeholder="mm"
+        ref={monthRef}
+        count={2}
+        value={selected.m}
+        maxLength={2}
+        pattern="[0-9]*"
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={handleChange("m")}
+        onKeyDown={onKeyDown("m")}
+      />
+      <Typography component="span" color="gray" size="xxxl">
+        /
+      </Typography>
+      <InputElement
+        placeholder="dd"
+        ref={dayRef}
+        count={2}
+        value={selected.d}
+        maxLength={2}
+        pattern="[0-9]*"
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={handleChange("d")}
+        onKeyDown={onKeyDown("d")}
+      />
+      {/* 🙄 */}
+      {usecase === "start" && (
+        <Spacer pl={1}>
+          <Typography component="span" color="gray" size="xxl">
+            -
+          </Typography>
+        </Spacer>
+      )}
+      {usecase === "end" && (
+        <CalendarIcon onClick={onClick}>
+          <Icon name="date_range" />
+        </CalendarIcon>
+      )}
+    </InputContainer>
+  )
+);
+
 const InputInCalendar = forwardRef<HTMLDivElement, Props>(
   (
     {
@@ -160,4 +243,6 @@ const InputInCalendar = forwardRef<HTMLDivElement, Props>(
 );
 
 export const CommonInput = memo(Input);
+// 🙄
+export const CommonInputRange = memo(InputRange);
 export const CommonInputInCalendar = memo(InputInCalendar);

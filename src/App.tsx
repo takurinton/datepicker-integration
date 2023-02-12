@@ -54,6 +54,16 @@ const DateRangePickerSample = () => {
           });
         },
       },
+      {
+        text: "先月",
+        onClick: () => {
+          console.log("clicked");
+          setDate({
+            startDate: dayjs(),
+            endDate: dayjs().subtract(1, "month"),
+          });
+        },
+      },
     ],
     []
   );
