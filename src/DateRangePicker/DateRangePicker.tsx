@@ -1,9 +1,9 @@
 import { Flex, Modal, Spacer } from "ingred-ui";
 import { FC, ReactNode, useRef, useState } from "react";
-import { Input, InputInCalendar } from "../Input/Input";
-import { Calendar } from "../Calendar/Calendar";
-import { Dayjs } from "dayjs";
+import { InputRange, InputRangeInCalendar } from "../Input/Input";
 import { Card, Action, LeftContainer } from "./styled";
+import { CalendarRange } from "../Calendar/CalendarRange";
+import { DateRange } from "../Calendar/CalendarRange/types";
 
 type Action = {
   text: ReactNode;
@@ -11,23 +11,27 @@ type Action = {
 };
 
 type Props = {
-  date: Dayjs;
+  date: DateRange;
   actions?: Action[];
-  onChange: (date: Dayjs) => void;
+  onChange?: (date: DateRange) => void;
 };
 
 /**
  * @todo add close if keydown esc
  * @todo forwardRef
  */
-export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
+export const DateRangePicker: FC<Props> = ({ date, actions, onChange }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Flex ref={ref}>
       {/* input */}
-      <Input date={date} onChange={onChange} onClick={() => setIsOpen(true)} />
+      <InputRange
+        date={date}
+        onChange={onChange}
+        onClick={() => setIsOpen(true)}
+      />
       <Spacer pb={1} />
 
       {/* calendar */}
@@ -35,7 +39,7 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <Card display="flex">
           <LeftContainer>
-            <InputInCalendar date={date} onChange={onChange} />
+            <InputRangeInCalendar date={date} onChange={onChange} />
             <Spacer pb={1} />
             {actions?.map(({ text, onClick }, i) => (
               <Action key={i} onClick={() => onClick()}>
@@ -44,7 +48,7 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
             ))}
           </LeftContainer>
           <Spacer pl={1} />
-          <Calendar date={date} onDateChange={onChange} />
+          <CalendarRange date={date} onDateChange={onChange} />
         </Card>
       </Modal>
     </Flex>
