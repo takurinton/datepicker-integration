@@ -59,8 +59,8 @@ const DateRangePickerSample = () => {
         onClick: () => {
           console.log("clicked");
           setDate({
-            startDate: dayjs(),
-            endDate: dayjs().subtract(1, "month"),
+            startDate: dayjs().subtract(1, "month"),
+            endDate: dayjs(),
           });
         },
       },
