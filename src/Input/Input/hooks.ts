@@ -173,15 +173,6 @@ export const useInput = (
     [selected]
   );
 
-  // for calendar change
-  useEffect(() => {
-    setSelected({
-      y: date.format("YYYY") as Year,
-      m: date.format("MM") as Month,
-      d: date.format("DD") as Day,
-    });
-  }, [date]);
-
   return {
     ref,
     yearRef,
