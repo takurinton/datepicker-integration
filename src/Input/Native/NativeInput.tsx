@@ -8,14 +8,14 @@ type Props = {
 };
 
 export const NativeInput = ({ date, onChange }: Props) => {
-  const { selected, valid, handleDateChange } = useInput(date, onChange);
+  const { valid, handleDateChange } = useInput(date, onChange);
   return (
     <NativeInputContainer
       type="date"
       min="1900-01-01"
       max="2099-12-31"
       valid={valid}
-      value={`${selected.y}-${selected.m}-${selected.d}`}
+      value={date.format("YYYY-MM-DD")}
       onChange={handleDateChange}
     />
   );

@@ -4,6 +4,7 @@ import { Input, InputInCalendar } from "../Input/Input";
 import { Calendar } from "../Calendar/Calendar";
 import { Dayjs } from "dayjs";
 import { Card, Action, LeftContainer } from "./styled";
+import { NativeInput } from "../Input/Native";
 
 type Action = {
   text: ReactNode;
@@ -52,7 +53,8 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <Card display="flex">
             <LeftContainer>
-              <InputInCalendar date={date} onChange={onChange} />
+              {/* <InputInCalendar date={date} onChange={onChange} /> */}
+              <NativeInput date={date} onChange={onChange} />
               <Spacer pb={1} />
               <Actions actions={actions} />
             </LeftContainer>

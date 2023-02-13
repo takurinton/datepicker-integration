@@ -1,32 +1,19 @@
 import dayjs, { Dayjs } from "dayjs";
-import { useCallback, useMemo, useState } from "react";
-import { Day, Month, Selected, Year } from "../types";
-import { isValidDate } from "../utils";
+import { useCallback, useMemo } from "react";
+
 export const useInput = (date: Dayjs, onChange?: (date: Dayjs) => void) => {
-  const [selected, setSelected] = useState<Selected>({
-    y: date.format("YYYY") as Year,
-    m: date.format("MM") as Month,
-    d: date.format("DD") as Day,
-  });
-  const valid = useMemo(() => isValidDate(selected), [selected]);
+  const valid = useMemo(() => date.isValid(), [date]);
 
   const handleDateChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const y = event.target.value.slice(0, 4) as Year;
-      const m = event.target.value.slice(5, 7) as Month;
-      const d = event.target.value.slice(8, 10) as Day;
-
-      setSelected({ y, m, d });
-
-      if (valid) {
-        onChange && onChange(dayjs(`${y}-${m}-${d}`));
+      if (dayjs(event.target.value).isValid()) {
+        onChange && onChange(dayjs(event.target.value));
       }
     },
-    [onChange, selected]
+    [onChange]
   );
 
   return {
-    selected,
     valid,
     handleDateChange,
   };
