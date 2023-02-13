@@ -27,8 +27,13 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
   return (
     <Flex ref={ref}>
       {/* input */}
-      <Input date={date} onChange={onChange} onClick={() => setIsOpen(true)} />
-      <Spacer pb={1} />
+      {!isOpen && (
+        <Input
+          date={date}
+          onChange={onChange}
+          onClick={() => setIsOpen(true)}
+        />
+      )}
 
       {/* calendar */}
       {/* TODO: should think using modal */}

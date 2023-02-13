@@ -27,12 +27,13 @@ export const DateRangePicker: FC<Props> = ({ date, actions, onChange }) => {
   return (
     <Flex ref={ref}>
       {/* input */}
-      <InputRange
-        date={date}
-        onChange={onChange}
-        onClick={() => setIsOpen(true)}
-      />
-      <Spacer pb={1} />
+      {!isOpen && (
+        <InputRange
+          date={date}
+          onChange={onChange}
+          onClick={() => setIsOpen(true)}
+        />
+      )}
 
       {/* calendar */}
       {/* TODO: should think using modal */}
