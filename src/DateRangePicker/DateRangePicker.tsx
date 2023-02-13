@@ -36,21 +36,23 @@ export const DateRangePicker: FC<Props> = ({ date, actions, onChange }) => {
 
       {/* calendar */}
       {/* TODO: should think using modal */}
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <Card display="flex">
-          <LeftContainer>
-            <InputRangeInCalendar date={date} onChange={onChange} />
-            <Spacer pb={1} />
-            {actions?.map(({ text, onClick }, i) => (
-              <Action key={i} onClick={() => onClick()}>
-                {text}
-              </Action>
-            ))}
-          </LeftContainer>
-          <Spacer pl={1} />
-          <CalendarRange date={date} onDateChange={onChange} />
-        </Card>
-      </Modal>
+      {isOpen && (
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <Card display="flex">
+            <LeftContainer>
+              <InputRangeInCalendar date={date} onChange={onChange} />
+              <Spacer pb={1} />
+              {actions?.map(({ text, onClick }, i) => (
+                <Action key={i} onClick={() => onClick()}>
+                  {text}
+                </Action>
+              ))}
+            </LeftContainer>
+            <Spacer pl={1} />
+            <CalendarRange date={date} onDateChange={onChange} />
+          </Card>
+        </Modal>
+      )}
     </Flex>
   );
 };

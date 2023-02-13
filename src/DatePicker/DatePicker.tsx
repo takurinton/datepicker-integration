@@ -32,21 +32,23 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
 
       {/* calendar */}
       {/* TODO: should think using modal */}
-      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <Card display="flex">
-          <LeftContainer>
-            <InputInCalendar date={date} onChange={onChange} />
-            <Spacer pb={1} />
-            {actions?.map(({ text, onClick }, i) => (
-              <Action key={i} onClick={() => onClick()}>
-                {text}
-              </Action>
-            ))}
-          </LeftContainer>
-          <Spacer pl={1} />
-          <Calendar date={date} onDateChange={onChange} />
-        </Card>
-      </Modal>
+      {isOpen && (
+        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <Card display="flex">
+            <LeftContainer>
+              <InputInCalendar date={date} onChange={onChange} />
+              <Spacer pb={1} />
+              {actions?.map(({ text, onClick }, i) => (
+                <Action key={i} onClick={() => onClick()}>
+                  {text}
+                </Action>
+              ))}
+            </LeftContainer>
+            <Spacer pl={1} />
+            <Calendar date={date} onDateChange={onChange} />
+          </Card>
+        </Modal>
+      )}
     </Flex>
   );
 };
