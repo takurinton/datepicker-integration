@@ -1,5 +1,5 @@
 import { Flex, Modal, Spacer } from "ingred-ui";
-import { FC, ReactNode, useRef, useState } from "react";
+import { FC, ReactNode, memo, useRef, useState } from "react";
 import { Input, InputInCalendar } from "../Input/Input";
 import { Calendar } from "../Calendar/Calendar";
 import { Dayjs } from "dayjs";
@@ -15,6 +15,17 @@ type Props = {
   actions?: Action[];
   onChange: (date: Dayjs) => void;
 };
+
+// TODO: should be moved to internal/Actions.tsx
+export const Actions = memo(({ actions }: { actions?: Action[] }) => (
+  <>
+    {actions?.map(({ text, onClick }, i) => (
+      <Action key={i} onClick={() => onClick()}>
+        {text}
+      </Action>
+    ))}
+  </>
+));
 
 /**
  * @todo add close if keydown esc
@@ -43,11 +54,7 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
             <LeftContainer>
               <InputInCalendar date={date} onChange={onChange} />
               <Spacer pb={1} />
-              {actions?.map(({ text, onClick }, i) => (
-                <Action key={i} onClick={() => onClick()}>
-                  {text}
-                </Action>
-              ))}
+              <Actions actions={actions} />
             </LeftContainer>
             <Spacer pl={1} />
             <Calendar date={date} onDateChange={onChange} />
