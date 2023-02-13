@@ -46,17 +46,15 @@ export const NativeInputRange = ({ date, onChange }: Props) => {
     []
   );
 
-  const {
-    selected: selectedStart,
-    valid: validStart,
-    handleDateChange: handleStartChange,
-  } = useInput(date.startDate, handleStartDateChange);
+  const { valid: validStart, handleDateChange: handleStartChange } = useInput(
+    date.startDate,
+    handleStartDateChange
+  );
 
-  const {
-    selected: selectedEnd,
-    valid: validEnd,
-    handleDateChange: handleEndChange,
-  } = useInput(date.endDate, handleEndDateChange);
+  const { valid: validEnd, handleDateChange: handleEndChange } = useInput(
+    date.endDate,
+    handleEndDateChange
+  );
 
   return (
     <>
@@ -66,7 +64,7 @@ export const NativeInputRange = ({ date, onChange }: Props) => {
         min="1900-01-01"
         max="2099-12-31"
         valid={validStart}
-        value={`${selectedStart.y}-${selectedStart.m}-${selectedStart.d}`}
+        value={date.startDate.format("YYYY-MM-DD")}
         onKeyDown={handleStartKeyDown}
         onChange={handleStartChange}
       />
@@ -80,7 +78,7 @@ export const NativeInputRange = ({ date, onChange }: Props) => {
         min="1900-01-01"
         max="2099-12-31"
         valid={validEnd}
-        value={`${selectedEnd.y}-${selectedEnd.m}-${selectedEnd.d}`}
+        value={date.endDate.format("YYYY-MM-DD")}
         onKeyDown={handleEndKeyDown}
         onChange={handleEndChange}
       />
