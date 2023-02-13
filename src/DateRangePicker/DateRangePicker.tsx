@@ -4,6 +4,7 @@ import { InputRange, InputRangeInCalendar } from "../Input/Input";
 import { Card, Action, LeftContainer } from "./styled";
 import { CalendarRange } from "../Calendar/CalendarRange";
 import { DateRange } from "../Calendar/CalendarRange/types";
+import { NativeInputRange } from "../Input/Native";
 
 type Action = {
   text: ReactNode;
@@ -52,7 +53,8 @@ export const DateRangePicker: FC<Props> = ({ date, actions, onChange }) => {
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <Card display="flex">
             <LeftContainer>
-              <InputRangeInCalendar date={date} onChange={onChange} />
+              {/* <InputRangeInCalendar date={date} onChange={onChange} /> */}
+              <NativeInputRange date={date} onChange={onChange} />
               <Spacer pb={1} />
               <Actions actions={actions} />
             </LeftContainer>

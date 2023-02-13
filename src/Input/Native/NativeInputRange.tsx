@@ -4,13 +4,14 @@ import { KeyboardEvent, useCallback, useRef } from "react";
 import { AllowedKeys } from "../constants";
 import { useInput } from "./hooks";
 import { NativeInputContainer } from "./styled";
+import { DateRange } from "../../Calendar/CalendarRange/types";
 
 type Props = {
   date: {
     startDate: Dayjs;
     endDate: Dayjs;
   };
-  onChange: (value: { startDate: Dayjs; endDate: Dayjs }) => void;
+  onChange?: (value: DateRange) => void;
 };
 
 export const NativeInputRange = ({ date, onChange }: Props) => {
@@ -18,10 +19,10 @@ export const NativeInputRange = ({ date, onChange }: Props) => {
   const endRef = useRef<HTMLInputElement>(null);
 
   const handleStartDateChange = (newDate: Dayjs) => {
-    onChange({ ...date, startDate: newDate });
+    onChange && onChange({ ...date, startDate: newDate });
   };
   const handleEndDateChange = (newDate: Dayjs) => {
-    onChange({ ...date, endDate: newDate });
+    onChange && onChange({ ...date, endDate: newDate });
   };
 
   const handleStartKeyDown = useCallback(
