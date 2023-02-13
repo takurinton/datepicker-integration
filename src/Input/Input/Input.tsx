@@ -1,7 +1,8 @@
 import { Dayjs } from "dayjs";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useInput } from "./hooks";
 import { CommonInput, CommonInputInCalendar } from "./CommonInput";
+import { Day, Month, Year } from "../types";
 
 type Props = {
   date: Dayjs;
@@ -19,10 +20,19 @@ export const Input: FC<Props> = ({ date, onChange, onClick }) => {
     selected,
     valid,
     handleChange,
+    handleChangeSelected,
     onFocus,
     onBlur,
     onKeyDown,
   } = useInput(date, onChange);
+
+  useEffect(() => {
+    handleChangeSelected({
+      y: date.format("YYYY") as Year,
+      m: date.format("MM") as Month,
+      d: date.format("DD") as Day,
+    });
+  }, [date]);
 
   console.log("Input render");
 

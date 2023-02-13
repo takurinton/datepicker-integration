@@ -173,14 +173,19 @@ export const useInput = (
     [selected]
   );
 
+  const handleChangeSelected = useCallback((selected: Selected) => {
+    setSelected(selected);
+  }, []);
+
   // for calendar change
-  useEffect(() => {
-    setSelected({
-      y: date.format("YYYY") as Year,
-      m: date.format("MM") as Month,
-      d: date.format("DD") as Day,
-    });
-  }, [date]);
+  // これが原因で不整合が起きてるっぽい、何か違方法を考える
+  // useEffect(() => {
+  //   setSelected({
+  //     y: date.format("YYYY") as Year,
+  //     m: date.format("MM") as Month,
+  //     d: date.format("DD") as Day,
+  //   });
+  // }, [date]);
 
   return {
     ref,
@@ -191,6 +196,7 @@ export const useInput = (
     selected,
     valid,
     handleChange,
+    handleChangeSelected,
     onFocus,
     onBlur,
     onKeyDown,

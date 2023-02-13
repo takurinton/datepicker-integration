@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 import { Flex, Spacer, Typography } from "ingred-ui";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import {
   CommonInput,
   CommonInputInCalendar,
@@ -8,7 +8,7 @@ import {
 } from "./CommonInput";
 import { AllowedKeys } from "../constants";
 import { useInput } from "./hooks";
-import { Range } from "../types";
+import { Day, Month, Range, Year } from "../types";
 
 type Props = {
   date: Range;
@@ -55,6 +55,7 @@ export const InputRange: FC<Props> = ({ date, onChange, onClick }) => {
     selected: startSelected,
     valid: startValid,
     handleChange: handleChangeStart,
+    handleChangeSelected: handleChangeStartSelected,
     onFocus: onFocusStart,
     onBlur: onBlurStart,
     onKeyDown: onKeyDownStart,
@@ -69,10 +70,27 @@ export const InputRange: FC<Props> = ({ date, onChange, onClick }) => {
     selected: endSelected,
     valid: endValid,
     handleChange: handleChangeEnd,
+    handleChangeSelected: handleChangeEndSelected,
     onFocus: onFocusEnd,
     onBlur: onBlurEnd,
     onKeyDown: onKeyDownEnd,
   } = useInput(date.endDate, handleChangeEndDate, handleEndKeyDown);
+
+  useEffect(() => {
+    if (startFocus) {
+      handleChangeStartSelected({
+        y: date.startDate.format("YYYY") as Year,
+        m: date.startDate.format("MM") as Month,
+        d: date.startDate.format("DD") as Day,
+      });
+    } else if (endFocus) {
+      handleChangeEndSelected({
+        y: date.endDate.format("YYYY") as Year,
+        m: date.endDate.format("MM") as Month,
+        d: date.endDate.format("DD") as Day,
+      });
+    }
+  }, [date]);
 
   return (
     <Flex display="flex">
