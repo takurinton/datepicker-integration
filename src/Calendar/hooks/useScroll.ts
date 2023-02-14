@@ -31,13 +31,6 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
   // for initial and change input value
   useEffect(() => {
     const targets = document.getElementsByClassName(d.format("YYYY-MM"));
-    if (targets.length === 0) {
-      setLoaded({
-        prev: d.subtract(13, "month"),
-        next: d.add(13, "month"),
-      });
-      setMonthList([...getPrevMonthList(d), ...getNextMonthList(d)]);
-    }
     for (const target of targets) {
       target.scrollIntoView({ block: "center" });
     }
