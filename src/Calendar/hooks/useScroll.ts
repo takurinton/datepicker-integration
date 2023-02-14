@@ -73,7 +73,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
         observer.unobserve(target);
       }
     };
-  }, [loaded.next]);
+  }, [loaded]);
 
   // for before scroll
   useEffect(() => {
@@ -112,7 +112,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
         observer.unobserve(target);
       }
     };
-  }, [loaded.prev]);
+  }, [loaded]);
 
   return { monthList };
 };
