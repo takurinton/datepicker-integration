@@ -36,6 +36,14 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     }
   }, [d]);
 
+  useEffect(() => {
+    setLoaded({
+      prev: d.subtract(13, "month"),
+      next: d.add(13, "month"),
+    });
+    setMonthList([...getPrevMonthList(d), ...getNextMonthList(d)]);
+  }, [d]);
+
   // for next scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
