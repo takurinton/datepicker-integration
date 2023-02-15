@@ -8,11 +8,11 @@ import { MARGIN } from "../constants";
  * of the object's referent.
  */
 const getNextMonthList = (date: Dayjs) =>
-  Array.from(new Array(13)).map((_, i) => date.clone().add(i, "month"));
+  Array.from(new Array(24)).map((_, i) => date.clone().add(i, "month"));
 
 const getPrevMonthList = (date: Dayjs) =>
-  Array.from(new Array(13)).map((_, i) =>
-    date.clone().subtract(13 - i, "month")
+  Array.from(new Array(24)).map((_, i) =>
+    date.clone().subtract(24 - i, "month")
   );
 
 export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
@@ -20,8 +20,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
     prev: Dayjs;
     next: Dayjs;
   }>({
-    prev: d.subtract(13, "month"),
-    next: d.add(13, "month"),
+    prev: d.subtract(24, "month"),
+    next: d.add(24, "month"),
   });
   const [monthList, setMonthList] = useState<Dayjs[]>([
     ...getPrevMonthList(d),
@@ -38,8 +38,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
 
   useEffect(() => {
     setLoaded({
-      prev: d.subtract(13, "month"),
-      next: d.add(13, "month"),
+      prev: d.subtract(24, "month"),
+      next: d.add(24, "month"),
     });
     setMonthList([...getPrevMonthList(d), ...getNextMonthList(d)]);
   }, [d]);
@@ -50,8 +50,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const next = loaded.next.add(13, "month");
-            const prev = loaded.prev.add(13, "month");
+            const next = loaded.next.add(24, "month");
+            const prev = loaded.prev.add(24, "month");
 
             const prevYearMonthList = getPrevMonthList(loaded.next);
             const nextYearMonthList = getNextMonthList(loaded.next);
@@ -81,7 +81,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
         observer.unobserve(target);
       }
     };
-  }, [loaded.next]);
+  }, [loaded]);
 
   // for before scroll
   useEffect(() => {
@@ -89,8 +89,8 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            const next = loaded.next.subtract(13, "month");
-            const prev = loaded.prev.subtract(13, "month");
+            const next = loaded.next.subtract(24, "month");
+            const prev = loaded.prev.subtract(24, "month");
 
             const prevYearMonthList = getPrevMonthList(loaded.prev);
             const nextYearMonthList = getNextMonthList(loaded.prev);
@@ -120,7 +120,7 @@ export const useScroll = (d: Dayjs, ref: React.RefObject<HTMLDivElement>) => {
         observer.unobserve(target);
       }
     };
-  }, [loaded.prev]);
+  }, [loaded]);
 
   return { monthList };
 };
