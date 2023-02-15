@@ -9,6 +9,9 @@ type Props = {
 
 export const NativeInput = ({ date, onChange }: Props) => {
   const { valid, handleDateChange } = useInput(date, onChange);
+
+  console.log("native input render");
+
   return (
     <NativeInputContainer
       type="date"
