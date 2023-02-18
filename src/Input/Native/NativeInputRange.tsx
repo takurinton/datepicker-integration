@@ -61,15 +61,13 @@ export const NativeInputRange = ({ date, clickState, onChange }: Props) => {
   useEffect(() => {
     switch (clickState) {
       case "start":
-        startRef.current?.focus();
+        // startRef.current?.focus();
         break;
       case "end":
-        endRef.current?.focus();
+        // endRef.current?.focus();
         break;
     }
   }, [date, clickState]);
-
-  console.log("native input render");
 
   return (
     <>
@@ -79,6 +77,7 @@ export const NativeInputRange = ({ date, clickState, onChange }: Props) => {
         min="1900-01-01"
         max="2099-12-31"
         valid={validStart}
+        focus={clickState === "start"}
         value={date.startDate.format("YYYY-MM-DD")}
         onKeyDown={handleStartKeyDown}
         onChange={handleStartChange}
@@ -93,6 +92,7 @@ export const NativeInputRange = ({ date, clickState, onChange }: Props) => {
         min="1900-01-01"
         max="2099-12-31"
         valid={validEnd}
+        focus={clickState === "end"}
         value={date.endDate.format("YYYY-MM-DD")}
         onKeyDown={handleEndKeyDown}
         onChange={handleEndChange}
