@@ -15,7 +15,7 @@ import { useScroll } from "../hooks/useScroll";
 
 type Props = {
   date: DateRange;
-  onDateChange?: (date: Dayjs) => void;
+  onDateChange?: (date: DateRange) => void;
 };
 
 /**
@@ -35,6 +35,35 @@ export const CalendarRange: FC<Props> = ({ date, onDateChange }) => {
 
   const ref = useRef<HTMLDivElement>(null);
   const { monthList } = useScroll(vdate.startDate ?? dayjs(), ref);
+  const [clickState, setClickState] = useState<ClickState>("start");
+
+  // How can I improve the User Experience?
+  // Answer: impossible
+  const handleDateChange = useCallback(
+    (value: Dayjs) => {
+      switch (clickState) {
+        case "start":
+          onDateChange?.({
+            startDate: value,
+            endDate: date.endDate,
+          });
+          setClickState("end");
+          break;
+        case "end":
+          onDateChange?.({
+            startDate: date.startDate,
+            endDate: value,
+          });
+          setClickState("start");
+          break;
+        // Maybe, I will add other state.
+        default:
+          console.warn("Unexpected clickState");
+          break;
+      }
+    },
+    [date]
+  );
 
   return (
     <Container>
@@ -64,7 +93,7 @@ export const CalendarRange: FC<Props> = ({ date, onDateChange }) => {
                         value={dayjs(new Date(m.year(), m.month(), day))}
                         selected={isSelected(date, m, day)}
                         isBetween={isBetween(date, m, day)}
-                        onClickDate={onDateChange}
+                        onClickDate={handleDateChange}
                       >
                         {day}
                       </Day>
