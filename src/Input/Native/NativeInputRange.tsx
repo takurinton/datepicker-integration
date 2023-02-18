@@ -1,6 +1,6 @@
 import { Dayjs } from "dayjs";
 import { Typography } from "ingred-ui";
-import { KeyboardEvent, useCallback, useRef } from "react";
+import { KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
 import { AllowedKeys } from "../constants";
 import { useInput } from "./hooks";
 import { NativeInputContainer } from "./styled";
@@ -11,6 +11,7 @@ type Props = {
     startDate: Dayjs;
     endDate: Dayjs;
   };
+
   onChange?: (value: DateRange) => void;
 };
 
