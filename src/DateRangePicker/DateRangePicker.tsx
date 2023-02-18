@@ -81,8 +81,11 @@ export const DateRangePicker: FC<Props> = ({ date, actions, onChange }) => {
         <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
           <Card display="flex">
             <LeftContainer>
-              {/* <InputRangeInCalendar date={date} onChange={onChange} /> */}
-              <NativeInputRange date={date} onChange={onChange} />
+              <NativeInputRange
+                date={date}
+                clickState={clickState}
+                onChange={onChange}
+              />
               <Spacer pb={1} />
               <Actions actions={actions} />
             </LeftContainer>

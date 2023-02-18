@@ -4,18 +4,18 @@ import { KeyboardEvent, useCallback, useEffect, useRef, useState } from "react";
 import { AllowedKeys } from "../constants";
 import { useInput } from "./hooks";
 import { NativeInputContainer } from "./styled";
-import { DateRange } from "../../Calendar/CalendarRange/types";
+import { ClickState, DateRange } from "../../Calendar/CalendarRange/types";
 
 type Props = {
   date: {
     startDate: Dayjs;
     endDate: Dayjs;
   };
-
+  clickState: ClickState;
   onChange?: (value: DateRange) => void;
 };
 
-export const NativeInputRange = ({ date, onChange }: Props) => {
+export const NativeInputRange = ({ date, clickState, onChange }: Props) => {
   const startRef = useRef<HTMLInputElement>(null);
   const endRef = useRef<HTMLInputElement>(null);
 
@@ -57,6 +57,19 @@ export const NativeInputRange = ({ date, onChange }: Props) => {
     date.endDate,
     handleEndDateChange
   );
+
+  useEffect(() => {
+    switch (clickState) {
+      case "start":
+        startRef.current?.focus();
+        break;
+      case "end":
+        endRef.current?.focus();
+        break;
+    }
+  }, [date, clickState]);
+
+  console.log("native input render");
 
   return (
     <>

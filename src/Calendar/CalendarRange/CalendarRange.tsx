@@ -36,6 +36,8 @@ export const CalendarRange: FC<Props> = ({ date, onDateChange }) => {
   const ref = useRef<HTMLDivElement>(null);
   const { monthList } = useScroll(vdate.startDate ?? dayjs(), ref);
 
+  console.log("calendar render");
+
   return (
     <Container>
       <ScrollArea ref={ref} minHeight={HEIGHT} maxHeight={HEIGHT} id="calendar">
