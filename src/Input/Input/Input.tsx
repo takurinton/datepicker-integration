@@ -1,5 +1,5 @@
 import { Dayjs } from "dayjs";
-import { FC } from "react";
+import { FC, forwardRef } from "react";
 import { useInput } from "./hooks";
 import { CommonInput, CommonInputInCalendar } from "./CommonInput";
 
@@ -9,7 +9,11 @@ type Props = {
   onClick?: () => void;
 };
 
-export const Input: FC<Props> = ({ date, onChange, onClick }) => {
+export const Input = forwardRef<HTMLDivElement, Props>(function Input({
+  date,
+  onChange,
+  onClick,
+}) {
   const {
     ref,
     yearRef,
@@ -43,7 +47,7 @@ export const Input: FC<Props> = ({ date, onChange, onClick }) => {
       onClick={onClick}
     />
   );
-};
+});
 
 export const InputInCalendar: FC<Props> = ({ date, onChange }) => {
   const {

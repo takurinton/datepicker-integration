@@ -5,6 +5,16 @@ import { Calendar } from "../Calendar/Calendar";
 import { Dayjs } from "dayjs";
 import { Card, Action, LeftContainer } from "./styled";
 import { NativeInput } from "../Input/Native";
+import {
+  FloatingFocusManager,
+  flip,
+  offset,
+  useClick,
+  useDismiss,
+  useFloating,
+  useInteractions,
+  useRole,
+} from "@floating-ui/react";
 
 type Action = {
   text: ReactNode;
@@ -29,29 +39,52 @@ export const Actions = memo(({ actions }: { actions?: Action[] }) => (
 ));
 
 /**
- * @todo add close if keydown esc
  * @todo forwardRef
  */
 export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
+  const [open, setOpen] = useState(false);
+  const { context, refs, strategy, x, y } = useFloating({
+    placement: "right-start",
+    open,
+    onOpenChange: setOpen,
+    middleware: [offset(10), flip()],
+  });
   const ref = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const click = useClick(context);
+  const dismiss = useDismiss(context);
+  const role = useRole(context);
+
+  const { getReferenceProps, getFloatingProps } = useInteractions([
+    click,
+    dismiss,
+    role,
+  ]);
+
+  const handleClickCalendarIcon = () => {
+    setOpen((prev) => !prev);
+  };
 
   return (
     <Flex ref={ref}>
-      {/* input */}
-      {!isOpen && (
+      <div
+        ref={refs.setReference}
+        {...getReferenceProps()}
+        style={{ width: "fit-content" }}
+      >
         <Input
           date={date}
           onChange={onChange}
-          onClick={() => setIsOpen(true)}
+          onClick={handleClickCalendarIcon}
         />
-      )}
-
-      {/* calendar */}
-      {/* TODO: should think using modal */}
-      {isOpen && (
-        <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-          <Card display="flex">
+      </div>
+      {open && (
+        <FloatingFocusManager context={context} modal={false}>
+          <Card
+            ref={refs.setFloating}
+            display="flex"
+            style={{ position: strategy, top: y ?? 0, left: x ?? 0 }}
+            {...getFloatingProps()}
+          >
             <LeftContainer>
               {/* <InputInCalendar date={date} onChange={onChange} /> */}
               <NativeInput date={date} onChange={onChange} />
@@ -61,7 +94,7 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
             <Spacer pl={1} />
             <Calendar date={date} onDateChange={onChange} />
           </Card>
-        </Modal>
+        </FloatingFocusManager>
       )}
     </Flex>
   );
