@@ -9,7 +9,6 @@ import {
   FloatingFocusManager,
   flip,
   offset,
-  useClick,
   useDismiss,
   useFloating,
   useInteractions,
@@ -50,12 +49,10 @@ export const DatePicker: FC<Props> = ({ date, actions, onChange }) => {
     middleware: [offset(10), flip()],
   });
   const ref = useRef<HTMLDivElement>(null);
-  const click = useClick(context);
   const dismiss = useDismiss(context);
   const role = useRole(context);
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
-    click,
     dismiss,
     role,
   ]);
