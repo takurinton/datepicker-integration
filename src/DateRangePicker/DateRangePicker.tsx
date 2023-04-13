@@ -1,11 +1,9 @@
-import { Flex, Modal, Spacer } from "ingred-ui";
+import { Divider, Flex, Spacer, useTheme } from "ingred-ui";
 import { FC, ReactNode, memo, useCallback, useRef, useState } from "react";
-import { InputRange, InputRangeInCalendar } from "../Input/Input";
+import { InputRange } from "../Input/Input";
 import { Card, Action, LeftContainer } from "./styled";
 import { CalendarRange } from "../Calendar/CalendarRange";
 import { DateRange } from "../Calendar/CalendarRange/types";
-import { NativeInputRange } from "../Input/Native";
-import { Dayjs } from "dayjs";
 import {
   FloatingFocusManager,
   flip,
@@ -15,6 +13,7 @@ import {
   useInteractions,
   useRole,
 } from "@floating-ui/react";
+import { Dayjs } from "dayjs";
 
 type Action = {
   text: ReactNode;
@@ -42,6 +41,7 @@ export const Actions = memo(({ actions }: { actions?: Action[] }) => (
  * @todo forwardRef
  */
 export const DateRangePicker: FC<Props> = ({ date, actions, onChange }) => {
+  const theme = useTheme();
   const [open, setOpen] = useState(false);
   const { context, refs, strategy, x, y } = useFloating({
     placement: "right-start",
@@ -111,14 +111,10 @@ export const DateRangePicker: FC<Props> = ({ date, actions, onChange }) => {
             {...getFloatingProps()}
           >
             <LeftContainer>
-              <NativeInputRange
-                date={date}
-                clickState={clickState}
-                onChange={onChange}
-              />
-              <Spacer pb={1} />
               <Actions actions={actions} />
             </LeftContainer>
+            <Spacer pl={1} />
+            <Divider orientation="vertical" color={theme.palette.divider} />
             <Spacer pl={1} />
             <CalendarRange date={date} onDateChange={handleDateChange} />
           </Card>
