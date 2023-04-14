@@ -7,7 +7,7 @@ export const InputContainer = styled.div<{
 }>`
   padding: 4px;
   display: flex;
-  border-radius: ${({ theme }) => theme.radius}px};
+  border-radius: ${({ theme }) => theme.radius}px;
   width: fit-content;
   height: fit-content;
   border: solid 1px
@@ -29,7 +29,6 @@ export const InputContainer = styled.div<{
         border-radius: 0 4px 4px 0;
         `
       : ""}
-      
 `;
 
 export const InputElement = styled.input<{ count: number }>`
